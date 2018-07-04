@@ -598,8 +598,11 @@ imshow(output, title='Output Image')
 print ('@ output: ', output)
 
 import imageio
+import numpy
 outfilename = 'output.png'
-imageio.imwrite (outfilename, output.detach().cpu().numpy())
+oimg = 255 * output.detach().cpu().numpy()[0].transpose((1,2,0))
+oimg =  oimg.astype (numpy.uint8)
+imageio.imwrite (outfilename, oimg)
 print ('@ ', outfilename)
 # sphinx_gallery_thumbnail_number = 4
 plt.ioff()
