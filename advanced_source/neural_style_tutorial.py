@@ -143,7 +143,10 @@ import torchvision.transforms as transforms
 import torchvision.models as models
 
 import copy
+import os
 
+cwd = os.getcwd ()
+print ('@ cwd = ', cwd)
 
 ######################################################################
 # Cuda
@@ -159,7 +162,7 @@ import copy
 # CPU (e.g. to use numpy), we can use the ``.cpu()`` method.
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+print ('using cuda' if torch.cuda.is_available() else 'using cpu')
 
 ######################################################################
 # Load images
@@ -592,6 +595,12 @@ output = run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std,
 plt.figure()
 imshow(output, title='Output Image')
 
+print ('@ output: ', output)
+
+import imageio
+outfilename = 'output.png'
+imageio.imwrite (outfilename, output.detach().cpu().numpy())
+print ('@ ', outfilename)
 # sphinx_gallery_thumbnail_number = 4
 plt.ioff()
 plt.show()
